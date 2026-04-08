@@ -15,7 +15,6 @@ import sys
 import types
 from unittest.mock import MagicMock
 
-
 # ---------------------------------------------------------------------------
 # Stub every telemetry side-effect before importing the module
 # ---------------------------------------------------------------------------
@@ -88,7 +87,6 @@ _install_otel_stubs()
 _install_misc_stubs()
 
 import telemetry  # noqa: E402
-
 
 # ---------------------------------------------------------------------------
 # Grab the exact instrument objects the module bound at import time.

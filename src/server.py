@@ -1,16 +1,15 @@
 # telemetry must be imported first to patch grpc before anything else
-from telemetry import start_rpc_metrics  # noqa: F401, E402
-
+import logging
 import os
 import time
-import logging
 from concurrent import futures
 
 import grpc
 from grpc_health.v1 import health_pb2, health_pb2_grpc
-from jinja2 import Environment, FileSystemLoader, select_autoescape, TemplateError
+from jinja2 import Environment, FileSystemLoader, TemplateError, select_autoescape
 
 from generated import email_pb2, email_pb2_grpc
+from telemetry import start_rpc_metrics  # noqa: F401, E402
 
 # ---------------------------------------------------------------------------
 # Logger

@@ -6,9 +6,9 @@ We use plain Python objects instead of generated protobuf stubs so the unit
 tests can run without a grpc compilation step.
 """
 
-import pytest
 from unittest.mock import MagicMock
 
+import pytest
 
 # ---------------------------------------------------------------------------
 # Lightweight proto message stand-ins

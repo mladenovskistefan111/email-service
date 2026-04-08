@@ -10,7 +10,6 @@ import sys
 import types
 from unittest.mock import MagicMock
 
-
 # ---------------------------------------------------------------------------
 # Stub every telemetry side-effect before importing the module
 # ---------------------------------------------------------------------------
@@ -91,7 +90,6 @@ _install_misc_stubs()
 
 # Now import the real telemetry module
 import telemetry  # noqa: E402  (src/ must be on sys.path)
-
 
 # ---------------------------------------------------------------------------
 # Tests for start_rpc_metrics

@@ -8,6 +8,7 @@ edge-case money values).
 """
 
 import os
+
 import pytest
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -115,7 +116,7 @@ class TestOrderItems:
         assert "7" in html
 
     def test_multiple_items_all_product_ids_present(self, confirmation_template, make_order):
-        from tests.conftest import _OrderItem, _Money
+        from tests.conftest import _Money, _OrderItem
 
         items = [
             _OrderItem(product_id="AAA-111", quantity=2, cost=_Money(units=5)),
@@ -135,7 +136,7 @@ class TestOrderItems:
         assert "#PROD" not in html
 
     def test_item_cost_currency_shown(self, confirmation_template, make_order):
-        from tests.conftest import _OrderItem, _Money
+        from tests.conftest import _Money, _OrderItem
 
         items = [
             _OrderItem(
