@@ -63,9 +63,7 @@ def _install_otel_stubs():
     sys.modules[
         "opentelemetry.sdk.metrics._internal.aggregation"
     ].ExplicitBucketHistogramAggregation = MagicMock()
-    sys.modules[
-        "opentelemetry.exporter.prometheus"
-    ].PrometheusMetricReader = MagicMock()
+    sys.modules["opentelemetry.exporter.prometheus"].PrometheusMetricReader = MagicMock()
 
     resource_mod = sys.modules["opentelemetry.sdk.resources"]
     resource_mod.Resource = MagicMock()

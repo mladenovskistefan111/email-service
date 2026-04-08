@@ -69,35 +69,25 @@ class TestTemplateStructure:
 
 
 class TestShippingCostFormatting:
-    def test_shipping_cost_units_present(
-        self, confirmation_template, make_order, make_money
-    ):
-        order = make_order(
-            shipping_cost=make_money(units=12, nanos=500000000, currency_code="EUR")
-        )
+    def test_shipping_cost_units_present(self, confirmation_template, make_order, make_money):
+        order = make_order(shipping_cost=make_money(units=12, nanos=500000000, currency_code="EUR"))
         html = render(confirmation_template, order)
         assert "12" in html
 
     def test_shipping_cost_currency_code_present(
         self, confirmation_template, make_order, make_money
     ):
-        order = make_order(
-            shipping_cost=make_money(currency_code="GBP", units=7, nanos=0)
-        )
+        order = make_order(shipping_cost=make_money(currency_code="GBP", units=7, nanos=0))
         html = render(confirmation_template, order)
         assert "GBP" in html
 
-    def test_shipping_cost_zero_nanos(
-        self, confirmation_template, make_order, make_money
-    ):
+    def test_shipping_cost_zero_nanos(self, confirmation_template, make_order, make_money):
         """nanos=0 should render as '00' via the format filter."""
         order = make_order(shipping_cost=make_money(units=5, nanos=0))
         html = render(confirmation_template, order)
         assert "00" in html
 
-    def test_shipping_cost_nanos_rounded(
-        self, confirmation_template, make_order, make_money
-    ):
+    def test_shipping_cost_nanos_rounded(self, confirmation_template, make_order, make_money):
         """nanos=990000000 → 99 cents via // 10000000."""
         order = make_order(shipping_cost=make_money(units=5, nanos=990000000))
         html = render(confirmation_template, order)
@@ -110,9 +100,7 @@ class TestShippingCostFormatting:
 
 
 class TestOrderItems:
-    def test_single_item_product_id_present(
-        self, confirmation_template, make_order, make_money
-    ):
+    def test_single_item_product_id_present(self, confirmation_template, make_order, make_money):
         from tests.conftest import _OrderItem
 
         items = [_OrderItem(product_id="UNIQUE-PROD-42", quantity=1)]
@@ -126,9 +114,7 @@ class TestOrderItems:
         html = render(confirmation_template, make_order(items=items))
         assert "7" in html
 
-    def test_multiple_items_all_product_ids_present(
-        self, confirmation_template, make_order
-    ):
+    def test_multiple_items_all_product_ids_present(self, confirmation_template, make_order):
         from tests.conftest import _OrderItem, _Money
 
         items = [
@@ -141,9 +127,7 @@ class TestOrderItems:
         assert "BBB-222" in html
         assert "CCC-333" in html
 
-    def test_empty_items_renders_no_product_rows(
-        self, confirmation_template, make_order
-    ):
+    def test_empty_items_renders_no_product_rows(self, confirmation_template, make_order):
         html = render(confirmation_template, make_order(items=[]))
         # Table headers still present, but no product IDs
         assert "Item No." in html

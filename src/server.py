@@ -57,15 +57,11 @@ class EmailServiceServicer(email_pb2_grpc.EmailServiceServicer):
             except TemplateError as err:
                 logger.error(f"Template rendering failed: {err}")
                 context.set_code(grpc.StatusCode.INTERNAL)
-                context.set_details(
-                    "An error occurred when preparing the confirmation mail."
-                )
+                context.set_details("An error occurred when preparing the confirmation mail.")
                 end_metrics("13")  # INTERNAL
                 return email_pb2.Empty()
 
-            logger.info(
-                f"A request to send order confirmation email to {email} has been received."
-            )
+            logger.info(f"A request to send order confirmation email to {email} has been received.")
             end_metrics("0")  # OK
             return email_pb2.Empty()
 

@@ -87,12 +87,8 @@ def valid_request():
 def multi_item_request():
     """Request carrying multiple order items."""
     items = [
-        _OrderItem(
-            product_id="PROD-001", quantity=1, cost=_Money(units=9, nanos=990000000)
-        ),
-        _OrderItem(
-            product_id="PROD-002", quantity=3, cost=_Money(units=24, nanos=970000000)
-        ),
+        _OrderItem(product_id="PROD-001", quantity=1, cost=_Money(units=9, nanos=990000000)),
+        _OrderItem(product_id="PROD-002", quantity=3, cost=_Money(units=24, nanos=970000000)),
     ]
     order = _OrderResult(order_id="ORD-999", items=items)
     return _SendOrderConfirmationRequest(email="bulk@example.com", order=order)
