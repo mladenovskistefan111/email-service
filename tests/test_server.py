@@ -63,7 +63,9 @@ def _install_otel_stubs():
     sys.modules[
         "opentelemetry.sdk.metrics._internal.aggregation"
     ].ExplicitBucketHistogramAggregation = MagicMock()
-    sys.modules["opentelemetry.exporter.prometheus"].PrometheusMetricReader = MagicMock()
+    sys.modules[
+        "opentelemetry.exporter.prometheus"
+    ].PrometheusMetricReader = MagicMock()
 
     resource_mod = sys.modules["opentelemetry.sdk.resources"]
     resource_mod.Resource = MagicMock()
@@ -134,7 +136,7 @@ class TestStartRpcMetrics:
         end("0")
         calls = _active_requests.add.call_args_list
         assert len(calls) == 2
-        assert calls[0][0][0] == 1   # increment on start
+        assert calls[0][0][0] == 1  # increment on start
         assert calls[1][0][0] == -1  # decrement on end
 
     def test_duration_recorded_on_end(self):
