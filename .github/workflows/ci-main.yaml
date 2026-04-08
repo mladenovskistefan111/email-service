@@ -295,9 +295,20 @@ jobs:
 
       - name: Start server
         run: |
-          PORT=50051 METRICS_PORT=9464 python src/server.py &
+          PORT=50051 \
+          METRICS_PORT=9464 \
+          OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318 \
+          PYROSCOPE_ADDR=http://localhost:4040 \
+          python src/server.py &
           echo "SERVER_PID=$!" >> $GITHUB_ENV
           sleep 3
+
+      - name: Check server started
+        run: |
+          if ! kill -0 $SERVER_PID 2>/dev/null; then
+            echo "Server process died during startup"
+            exit 1
+          fi
 
       - name: Install grpcurl
         run: |
