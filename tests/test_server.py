@@ -54,14 +54,10 @@ def _install_otel_stubs():
 
     sys.modules["opentelemetry.sdk.trace"].TracerProvider = MagicMock()
     sys.modules["opentelemetry.sdk.trace.export"].BatchSpanProcessor = MagicMock()
-    sys.modules[
-        "opentelemetry.exporter.otlp.proto.http.trace_exporter"
-    ].OTLPSpanExporter = MagicMock()
+    sys.modules["opentelemetry.exporter.otlp.proto.http.trace_exporter"].OTLPSpanExporter = MagicMock()
     sys.modules["opentelemetry.sdk.metrics"].MeterProvider = MagicMock()
     sys.modules["opentelemetry.sdk.metrics.view"].View = MagicMock()
-    sys.modules[
-        "opentelemetry.sdk.metrics._internal.aggregation"
-    ].ExplicitBucketHistogramAggregation = MagicMock()
+    sys.modules["opentelemetry.sdk.metrics._internal.aggregation"].ExplicitBucketHistogramAggregation = MagicMock()
     sys.modules["opentelemetry.exporter.prometheus"].PrometheusMetricReader = MagicMock()
 
     resource_mod = sys.modules["opentelemetry.sdk.resources"]

@@ -75,9 +75,7 @@ class TestShippingCostFormatting:
         html = render(confirmation_template, order)
         assert "12" in html
 
-    def test_shipping_cost_currency_code_present(
-        self, confirmation_template, make_order, make_money
-    ):
+    def test_shipping_cost_currency_code_present(self, confirmation_template, make_order, make_money):
         order = make_order(shipping_cost=make_money(currency_code="GBP", units=7, nanos=0))
         html = render(confirmation_template, order)
         assert "GBP" in html
@@ -161,9 +159,7 @@ class TestAutoescape:
         assert "<script>" not in html
         assert "&lt;script&gt;" in html
 
-    def test_email_fields_escaped_if_rendered(
-        self, confirmation_template, make_order, make_address
-    ):
+    def test_email_fields_escaped_if_rendered(self, confirmation_template, make_order, make_address):
         addr = make_address(city="<b>Gotham</b>")
         order = make_order(shipping_address=addr)
         html = render(confirmation_template, order)
