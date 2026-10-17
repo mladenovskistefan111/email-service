@@ -11,6 +11,7 @@ The OTel meter returns a new MagicMock per create_* call, so we must use the
 same object the module bound at import time.
 """
 
+import logging
 import sys
 import types
 from unittest.mock import MagicMock
@@ -40,13 +41,18 @@ def _install_otel_stubs():
     for name in [
         "opentelemetry.sdk.trace",
         "opentelemetry.sdk.trace.export",
-        "opentelemetry.exporter.otlp.proto.http",
-        "opentelemetry.exporter.otlp.proto.http.trace_exporter",
+        "opentelemetry._logs",
+        "opentelemetry.exporter.otlp.proto.grpc",
+        "opentelemetry.exporter.otlp.proto.grpc._log_exporter",
+        "opentelemetry.exporter.otlp.proto.grpc.metric_exporter",
+        "opentelemetry.exporter.otlp.proto.grpc.trace_exporter",
+        "opentelemetry.sdk._logs",
+        "opentelemetry.sdk._logs.export",
+        "opentelemetry.sdk.metrics.export",
         "opentelemetry.sdk.metrics",
         "opentelemetry.sdk.metrics.view",
         "opentelemetry.sdk.metrics._internal",
         "opentelemetry.sdk.metrics._internal.aggregation",
-        "opentelemetry.exporter.prometheus",
         "opentelemetry.sdk.resources",
         "opentelemetry.instrumentation.grpc",
     ]:
@@ -54,11 +60,18 @@ def _install_otel_stubs():
 
     sys.modules["opentelemetry.sdk.trace"].TracerProvider = MagicMock()
     sys.modules["opentelemetry.sdk.trace.export"].BatchSpanProcessor = MagicMock()
-    sys.modules["opentelemetry.exporter.otlp.proto.http.trace_exporter"].OTLPSpanExporter = MagicMock()
+    sys.modules["opentelemetry.exporter.otlp.proto.grpc.trace_exporter"].OTLPSpanExporter = MagicMock()
+    sys.modules["opentelemetry.exporter.otlp.proto.grpc.metric_exporter"].OTLPMetricExporter = MagicMock()
+    sys.modules["opentelemetry.exporter.otlp.proto.grpc._log_exporter"].OTLPLogExporter = MagicMock()
+    sys.modules["opentelemetry.sdk.metrics.export"].PeriodicExportingMetricReader = MagicMock()
+    sys.modules["opentelemetry._logs"].set_logger_provider = MagicMock()
+    sys.modules["opentelemetry.sdk._logs"].LoggerProvider = MagicMock()
+    # must be a real logging.Handler-like object because telemetry attaches it to the service logger
+    sys.modules["opentelemetry.sdk._logs"].LoggingHandler = MagicMock(side_effect=lambda *a, **k: logging.NullHandler())
+    sys.modules["opentelemetry.sdk._logs.export"].BatchLogRecordProcessor = MagicMock()
     sys.modules["opentelemetry.sdk.metrics"].MeterProvider = MagicMock()
     sys.modules["opentelemetry.sdk.metrics.view"].View = MagicMock()
     sys.modules["opentelemetry.sdk.metrics._internal.aggregation"].ExplicitBucketHistogramAggregation = MagicMock()
-    sys.modules["opentelemetry.exporter.prometheus"].PrometheusMetricReader = MagicMock()
 
     resource_mod = sys.modules["opentelemetry.sdk.resources"]
     resource_mod.Resource = MagicMock()
