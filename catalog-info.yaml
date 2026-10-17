@@ -12,6 +12,7 @@ metadata:
     backstage.io/kubernetes-label-selector: app.kubernetes.io/name=email-service
     argocd/app-name: dev-email-service
     grafana/dashboard-selector: "tags @> 'email'"
+    grafana/alert-label-selector: "service=email-service"
     grafana/overview-dashboard: "https://grafana.platform-demo.test/d/email-service-overview"
   tags: [python, grpc]
   links:
