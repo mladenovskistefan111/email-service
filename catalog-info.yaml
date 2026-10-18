@@ -6,6 +6,7 @@ metadata:
   description: "A gRPC service that handles order-confirmation emails for the platform-demo e-commerce platform."
   annotations:
     github.com/project-slug: platform-boutique/app-email-service
+    backstage.io/source-location: url:https://github.com/platform-boutique/app-email-service/tree/main/
     backstage.io/techdocs-ref: dir:.
     backstage.io/kubernetes-id: email-service
     backstage.io/kubernetes-namespace: platform-demo
@@ -16,7 +17,6 @@ metadata:
     grafana/overview-dashboard: "https://grafana.platform-demo.test/d/email-service-overview"
   tags: [python, grpc]
   links:
-    - { url: "https://github.com/platform-boutique/app-email-service", title: Repository, icon: github }
     - { url: "https://argocd.platform-demo.test/applications/argocd/dev-email-service", title: Argo CD, icon: dashboard }
     - { url: "https://grafana.platform-demo.test/d/email-service-overview", title: Grafana dashboard, icon: dashboard }
 spec:
