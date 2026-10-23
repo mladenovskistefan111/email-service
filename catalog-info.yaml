@@ -14,11 +14,11 @@ metadata:
     argocd/app-name: dev-email-service
     grafana/dashboard-selector: "tags @> 'email'"
     grafana/alert-label-selector: "service=email-service"
-    grafana/overview-dashboard: "https://grafana.platform-demo.test/d/email-service-overview"
+    grafana/overview-dashboard: "https://grafana.platform-demo.click/d/email-service-overview"
   tags: [python, grpc]
   links:
-    - { url: "https://argocd.platform-demo.test/applications/argocd/dev-email-service", title: Argo CD, icon: dashboard }
-    - { url: "https://grafana.platform-demo.test/d/email-service-overview", title: Grafana dashboard, icon: dashboard }
+    - { url: "https://argocd.platform-demo.click/applications/argocd/dev-email-service", title: Argo CD, icon: dashboard }
+    - { url: "https://grafana.platform-demo.click/d/email-service-overview", title: Grafana dashboard, icon: dashboard }
 spec:
   type: service
   lifecycle: experimental
