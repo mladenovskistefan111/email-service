@@ -1,0 +1,43 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: email-service
+  title: email-service
+  description: "A gRPC service that handles order-confirmation emails for the platform-demo e-commerce platform."
+  annotations:
+    github.com/project-slug: platform-boutique/app-email-service
+    backstage.io/source-location: url:https://github.com/platform-boutique/app-email-service/tree/main/
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/kubernetes-id: email-service
+    backstage.io/kubernetes-namespace: platform-demo
+    backstage.io/kubernetes-label-selector: app.kubernetes.io/name=email-service
+    argocd/app-name: dev-email-service
+    grafana/dashboard-selector: "tags @> 'email'"
+    grafana/alert-label-selector: "service=email-service"
+    grafana/overview-dashboard: "https://grafana.platform-demo.test/d/email-service-overview"
+  tags: [python, grpc]
+  links:
+    - { url: "https://argocd.platform-demo.test/applications/argocd/dev-email-service", title: Argo CD, icon: dashboard }
+    - { url: "https://grafana.platform-demo.test/d/email-service-overview", title: Grafana dashboard, icon: dashboard }
+spec:
+  type: service
+  lifecycle: experimental
+  owner: group:default/maintainers
+  system: shop
+  providesApis: [email-service-api]
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: email-service-api
+  description: gRPC interface of email-service (Protocol Buffers).
+  tags: [grpc, protobuf]
+  links:
+    - { url: "https://github.com/platform-boutique/app-email-service/blob/main/proto/email.proto", title: "email.proto on GitHub", icon: code }
+spec:
+  type: grpc
+  lifecycle: experimental
+  owner: group:default/maintainers
+  system: shop
+  definition:
+    $text: ./proto/email.proto
