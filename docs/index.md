@@ -43,7 +43,7 @@ flowchart LR
 <div class="pd-cards" markdown>
 <div><h4><a href="https://argocd.platform-demo.click/applications/argocd/dev-email-service">Argo CD</a></h4><p>Sync and health of <code>dev-email-service</code>.</p></div>
 <div><h4><a href="https://grafana.platform-demo.click/d/email-service-overview">Grafana</a></h4><p>Latency, traffic and errors (<code>email-service-overview</code>).</p></div>
-<div><h4><a href="https://github.com/platform-boutique/app-email-service">Repository</a></h4><p>Source, pull requests and releases of <code>app-email-service</code>.</p></div>
+<div><h4><a href="https://github.com/platform-boutique/app-email-service">Repository</a></h4><p>Source and pull requests of <code>app-email-service</code>. Images are published from <code>main</code> by the Publish workflow; there are no releases or tags in this repository.</p></div>
 </div>
 
 !!! info "Part of the platform-demo platform"
